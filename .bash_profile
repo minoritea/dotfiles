@@ -17,8 +17,6 @@ export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]💕\[\e[m\]";else echo "\
 export GOPATH=$HOME/go
 
 PATH=$GOPATH/bin:$PATH
-PATH=$HOME/bin/.ruby-build/2.4.2/bin:$PATH
-PATH=$HOME/bin/.node-build/8.2.1/bin:$PATH
 PATH=$HOME/.local/bin:$PATH
 PATH=$HOME/.cargo/bin:$PATH
 export PATH

@@ -7,20 +7,6 @@ if type direnv >/dev/null 2>&1;then
   eval "$(direnv hook bash)"
 fi
 
-if uname | grep Darwin > /dev/null 2>&1;then
-  alias ls="ls -G"
-
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-  fi
-else
-  alias ls="ls --color"
-
-  if [ -f /usr/share/bash-completion/bash_completion ];then
-    . /usr/share/bash-completion/bash_completion
-  fi
-fi
-
 function get_abs_dir() {
   [ ! -e $1 ] && return 1
   cdir=$(pwd)
@@ -41,13 +27,24 @@ function md() {
   mkdir -p $@ && cdabs $@
 }
 
-if ! type git-current-branch > /dev/null 2>&1;then
-  alias git-current-branch=[ -e "$(pwd)/.git" ] && git rev-parse --abbrev-ref HEAD 2>/dev/null
-fi
-
 shopt -s histappend
 
 bind -x '"\C-r": hp'
 bind    '"\C-xr": reverse-search-history'
 
+if uname | grep Darwin > /dev/null 2>&1;then
+  alias ls="ls -G"
+
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+else
+  alias ls="ls --color"
+
+  if [ -f /usr/share/bash-completion/bash_completion ];then
+    . /usr/share/bash-completion/bash_completion
+  fi
+fi
+
+alias 'git-current-branch=[ -e "$(pwd)/.git" ] && git rev-parse --abbrev-ref HEAD 2>/dev/null'
 alias vim=nvim
