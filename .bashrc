@@ -51,7 +51,7 @@ shopt -s histappend
 function hp() {
   local action
   # Look up event with peco.
-  action="$(history | peco | cut -c 28-)"
+  action="$(history | peco | cut -c 30-)"
   # Store event in history.
   history -s "${action}"
   # Execute.
