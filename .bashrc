@@ -91,7 +91,7 @@ function cdabs() {
 alias ca=cdabs
 
 if ! type git-current-branch > /dev/null 2>&1;then
-  alias git-current-branch=[ -e "$(pwd)/.git" ] && git rev-parse --abbrev-ref HEAD 2>/dev/null
+  alias git-current-branch='[ -e "$(pwd)/.git" ] && git rev-parse --abbrev-ref HEAD 2>/dev/null'
 fi
 
 shopt -s histappend
