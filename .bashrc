@@ -32,8 +32,11 @@ export HISTSIZE=100000
 export HISTFILESIZE=100000
 export HISTCONTROL=ignoreboth
 
-export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] @ \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
-# export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]💕\[\e[m\]";else echo "\[\e[0;33m\]💔\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\]@\[\e[0;34m\]\H\[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
+export PS1='
+$(if [[ $? == 0 ]];then echo "\[\e[35m\]🧡";else echo "\[\e[32m\]💔";fi) \[\e[33m\]\u\[\e[34m\] \D{%Y-%m-%dT%H:%M:%S}\[\e[m\] \[\e[1;36m\]$(BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);if [ ! -z "$BRANCH" ];then echo 🌿 $BRANCH;fi)
+\[\e[1;34m\]At \[\e[1;35m\]\w\[\e[m\]
+\[\e[1;32m\]❯\[\e[m\] '
+# export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] @ \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
 
 export VTE_CJK_WIDTH=1
 

@@ -1,8 +1,9 @@
 {
   "languageserver": {
     "golang": {
-      "command": "gopls-unifier",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "command": "gopls",
+      "trace.server": "verbose",
+      "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
     }
   }

@@ -10,7 +10,7 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   " (Optional) Multi-entry selection UI.
   " Plug 'junegunn/fzf'
   " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   Plug 'scrooloose/nerdtree'
 
