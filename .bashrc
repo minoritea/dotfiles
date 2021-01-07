@@ -1,5 +1,5 @@
 #load /etc/bashrc
-if [ "x" = "x$ETC_BASHRC_LOADED" ];then
+if [ "x" = "x$ETC_BASHRC_LOADED" -a -e /etc/bashrc ];then
   . /etc/bashrc
   export ETC_BASHRC_LOADED=ok
 fi
@@ -32,8 +32,11 @@ export HISTSIZE=100000
 export HISTFILESIZE=100000
 export HISTCONTROL=ignoreboth
 
-# export PS1='[$(if [[ $? == 0 ]];then echo "\[\e[0;32m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi)] \[\e[0;34m\]\u\[\e[0;33m\] \[\e[0;34m\] $(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]>>\[\e[m\] '
- export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]💕\[\e[m\]";else echo "\[\e[0;33m\]💢\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] 🕘 \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S")\[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
+export PS1='
+$(if [[ $? == 0 ]];then echo "\[\e[35m\]🧡";else echo "\[\e[32m\]💔";fi) \[\e[33m\]\u\[\e[34m\] \D{%Y-%m-%dT%H:%M:%S}\[\e[m\] \[\e[1;36m\]$(BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);if [ ! -z "$BRANCH" ];then echo 🌿 $BRANCH;fi)
+\[\e[1;34m\]At \[\e[1;35m\]\w\[\e[m\]
+\[\e[1;32m\]❯\[\e[m\] '
+# export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] @ \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
 
 export VTE_CJK_WIDTH=1
 
@@ -60,6 +63,7 @@ if uname | grep Darwin > /dev/null 2>&1;then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
   fi
+  alias ctags="`brew --prefix`/bin/ctags"
 else
   alias ls="ls --color"
 
@@ -70,13 +74,16 @@ else
 fi
 
 alias vim=nvim
-alias ctags="`brew --prefix`/bin/ctags"
 alias docker-stop-all='docker ps -q | xargs docker stop'
 
 function get_abs_dir() {
+  cmd=readlink
+  if [ -x "$(command -v greadlink)" ];then
+    cmd=greadlink
+  fi
   [ ! -e "$1" ] && return 1
   cdir="$(pwd)"
-  cd "$(greadlink -f "$1")"
+  cd "$(${cmd} -f "$1")"
   echo "$(pwd)"
   cd "$cdir"
 }
@@ -134,20 +141,6 @@ function git-push-origin-current-branch() {
 
 function git-pull-origin-current-branch() {
   git pull origin $(git-current-branch) $@
-}
-
-function wd2gopath() {
-  local target="$(cdabs "$1";pwd)"
-  local gopath_src="$(cdabs $GOPATH/src;pwd)/"
-  echo ${target#${gopath_src}}
-}
-
-function pgoose() {
-  [ "x$1" = "x" -o "x$2" = "x" ] && exit 1
-  local dir="$1"
-  local dbname="$2"
-  shift 2
-  goose -dir "$dir" postgres "host=localhost dbname=${dbname} user=root" $@
 }
 
 function ymd() {
