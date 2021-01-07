@@ -32,8 +32,8 @@ export HISTSIZE=100000
 export HISTFILESIZE=100000
 export HISTCONTROL=ignoreboth
 
-export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]💕\[\e[m\]";else echo "\[\e[0;33m\]💔\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] 🕘 \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
-# export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]💕\[\e[m\]";else echo "\[\e[0;33m\]💔\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\]@\[\e[0;34m\]\H\[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
+# export PS1='[$(if [[ $? == 0 ]];then echo "\[\e[0;32m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi)] \[\e[0;34m\]\u\[\e[0;33m\] \[\e[0;34m\] $(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]>>\[\e[m\] '
+ export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]💕\[\e[m\]";else echo "\[\e[0;33m\]💢\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] 🕘 \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S")\[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
 
 export VTE_CJK_WIDTH=1
 
@@ -91,14 +91,14 @@ function cdabs() {
 alias ca=cdabs
 
 if ! type git-current-branch > /dev/null 2>&1;then
-  alias git-current-branch='[ -e "$(pwd)/.git" ] && git rev-parse --abbrev-ref HEAD 2>/dev/null'
+  alias git-current-branch='git rev-parse --abbrev-ref HEAD 2>/dev/null'
 fi
 
 shopt -s histappend
 
 if [ -e /tmp/history-watcher.lock ];then
   if ! pgrep -F /tmp/history-watcher.pid >/dev/null;then
-    rm /tmp/history-watcher.lock
+    rm /tmp/history-watcher.lock /tmp/history-watcher.pid
     history_watcher_tempfile_not_exists=1
   fi
 else
@@ -153,3 +153,9 @@ function pgoose() {
 function ymd() {
   date +%Y%m%d
 }
+
+ export TMUX_TMPDIR=/private/tmp
+
+[ -z "$NO_USE_TMUX" -a -z "$TMUX" ] && (tmux attach || tmux new-session)
+
+ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
