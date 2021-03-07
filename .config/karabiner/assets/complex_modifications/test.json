@@ -1,0 +1,24 @@
+{
+    "title": "test",
+    "rules": [
+        {
+            "description": "test",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "caps_lock"
+                    },
+                    "to": {
+                        "key_code": "left_gui"
+                    },
+                    "conditions":[
+                        {"type":"frontmost_application_unless", "bundle_identifiers":[
+                            "^com\\.apple\\.Terminal$"
+                        ]}
+                    ]
+                }
+            ]
+        }
+    ]
+}
