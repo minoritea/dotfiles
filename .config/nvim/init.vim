@@ -75,3 +75,4 @@ tnoremap <A-n> <C-\><C-n>:FloatermNew NO_USE_TMUX=1 bash<cr>
 tnoremap <A-t> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <A-h> <C-\><C-n>:FloatermPrev<cr>
 tnoremap <A-l> <C-\><C-n>:FloatermNext<cr>
+noremap Q <ESC>
