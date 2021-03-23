@@ -147,8 +147,10 @@ function ymd() {
   date +%Y%m%d
 }
 
- export TMUX_TMPDIR=/private/tmp
+if uname | grep Darwin > /dev/null 2>&1;then
+  export TMUX_TMPDIR=/private/tmp
+fi
 
 [ -z "$NO_USE_TMUX" -a -z "$TMUX" ] && (tmux attach || tmux new-session)
 
- export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
