@@ -25,6 +25,10 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'junegunn/fzf.vim'
 
   Plug 'voldikss/vim-floaterm'
+
+  Plug 'sheerun/vim-polyglot'
+
+  Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 set hidden
