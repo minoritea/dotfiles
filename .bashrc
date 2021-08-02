@@ -1,3 +1,5 @@
+stty -ixon
+
 #load /etc/bashrc
 if [ "x" = "x$ETC_BASHRC_LOADED" -a -e /etc/bashrc ];then
   . /etc/bashrc
@@ -17,12 +19,9 @@ export GOPATH=$HOME/go
 PATH="/usr/local/bin:/usr/local/sbin:$ORIG_PATH"
 PATH="$GOPATH/bin:$PATH"
 PATH="$HOME/.local/var/lib/ruby-build/2.6.1/bin:$PATH"
-# PATH=$HOME/.local/var/lib/node-build/9.11.1/bin:$PATH
+PATH=$HOME/.local/var/lib/node-build/14.17.0/bin:$PATH
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
-# PATH="$HOME/projects/scripts/bin:$PATH"
-# PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"
-# PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 
 export PATH
 
@@ -33,7 +32,7 @@ export HISTFILESIZE=100000
 export HISTCONTROL=ignoreboth
 
 export PS1='
-$(if [[ $? == 0 ]];then echo "\[\e[35m\]🧡";else echo "\[\e[32m\]💔";fi) \[\e[33m\]\u\[\e[34m\] \D{%Y-%m-%dT%H:%M:%S}\[\e[m\] \[\e[1;36m\]$(BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);if [ ! -z "$BRANCH" ];then echo [$BRANCH];fi)
+$(if [[ "x$?" = "x0" ]];then echo "\[\e[35m\]🧡";else echo "\[\e[32m\]💔";fi) \[\e[33m\]\u\[\e[34m\] \D{%Y-%m-%dT%H:%M:%S}\[\e[m\] \[\e[1;36m\]$(BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);if [ ! -z "$BRANCH" ];then echo [$BRANCH];fi)
 \[\e[1;34m\]At \[\e[1;35m\]\w\[\e[m\]
 \[\e[1;32m\]❯\[\e[m\] '
 # export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] @ \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
@@ -154,3 +153,7 @@ fi
 [ -z "$NO_USE_TMUX" -a -z "$TMUX" ] && (tmux attach || tmux new-session)
 
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
+
+for f in $HOME/.bash.d;do
+  . $f
+done
