@@ -31,36 +31,20 @@ fi
 
 export PATH
 
-export EDITOR=$(which nvim)
-
-export HISTSIZE=100000
-export HISTFILESIZE=200000
-export HISTCONTROL=ignoreboth
-
 export PS1='
 $(if [[ "x$?" = "x0" ]];then echo "\[\e[35m\]🧡";else echo "\[\e[32m\]💔";fi) \[\e[33m\]\u\[\e[34m\] \D{%Y-%m-%dT%H:%M:%S}\[\e[m\] \[\e[1;36m\]$(BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);if [ ! -z "$BRANCH" ];then echo [$BRANCH];fi)
 \[\e[1;34m\]At \[\e[1;35m\]\w\[\e[m\]
 \[\e[1;32m\]❯\[\e[m\] '
-# export PS1='$(if [[ $? == 0 ]];then echo "\[\e[0;35m\]OK\[\e[m\]";else echo "\[\e[0;33m\]NG\[\e[m\]";fi) \[\e[0;34m\]\u\[\e[0;33m\] @ \[\e[0;34m\]$(date "+%Y-%m-%d %H:%M:%S") \[\e[m\] \[\e[1;35m\]\W\[\e[m\] \[\e[1;36m\]($(git-current-branch))\[\e[m\] \[\e[1;32m\]❯❯\[\e[m\] '
 
 export VTE_CJK_WIDTH=1
 
 # history
-export HISTTIMEFORMAT='%Y-%m-%d %T '
 export HISTSIZE=100000
+export HISTFILESIZE=200000
+export HISTCONTROL=ignoreboth
+export HISTTIMEFORMAT='%Y-%m-%d %T '
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-
-##### ↑↑ variables #####
-
-#load direnv
-if type pyenv >/dev/null 2>&1;then
-  eval "$(pyenv init -)"
-fi
-
-if type direnv >/dev/null 2>&1;then
-  export DIRENV_CONFIG=$HOME/.config/direnv
-  eval "$(direnv hook bash)"
-fi
+shopt -s histappend
 
 if uname | grep Darwin > /dev/null 2>&1;then
   alias ls="ls -G"
@@ -78,8 +62,8 @@ else
 
 fi
 
+export EDITOR=$(which nvim)
 alias vim=nvim
-alias docker-stop-all='docker ps -q | xargs docker stop'
 
 function get_abs_dir() {
   cmd=readlink
@@ -105,8 +89,6 @@ alias ca=cdabs
 if ! type git-current-branch > /dev/null 2>&1;then
   alias git-current-branch='git rev-parse --abbrev-ref HEAD 2>/dev/null'
 fi
-
-shopt -s histappend
 
 if [ -e /tmp/history-watcher.lock ];then
   if ! pgrep -F /tmp/history-watcher.pid >/dev/null;then
@@ -148,18 +130,13 @@ function git-pull-origin-current-branch() {
   git pull origin $(git-current-branch) $@
 }
 
-function ymd() {
-  date +%Y%m%d
-}
-
 if uname | grep Darwin > /dev/null 2>&1;then
   export TMUX_TMPDIR=/private/tmp
 fi
-
 [ -z "$NO_USE_TMUX" -a -z "$TMUX" ] && (tmux attach || tmux new-session)
 
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
 
 for f in $HOME/.bash.d/*sh;do
-  . $f
+  [ -e $f ] && . $f
 done
