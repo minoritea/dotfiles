@@ -160,6 +160,6 @@ fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
 
-for f in $HOME/.bash.d;do
+for f in $HOME/.bash.d/*sh;do
   . $f
 done
