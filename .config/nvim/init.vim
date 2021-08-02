@@ -2,14 +2,6 @@ if empty($XDG_DATA_HOME)
   let $XDG_DATA_HOME= $HOME."/.local/share"
 endif
 call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "     \ 'branch': 'next',
-  "     \ 'do': 'bash install.sh',
-  "     \ }
-
-  " (Optional) Multi-entry selection UI.
-  " Plug 'junegunn/fzf'
-  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   Plug 'scrooloose/nerdtree'
@@ -25,15 +17,15 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'junegunn/fzf.vim'
 
   Plug 'voldikss/vim-floaterm'
+
+  Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'HerringtonDarkholme/yats.vim'
+
+  Plug 'guns/vim-sexp',    {'for': 'clojure'}
+  Plug 'liquidz/vim-iced', {'for': 'clojure'}
 call plug#end()
 
 set hidden
-
-"let g:LanguageClient_serverCommands = {'go': [$GOPATH.'/bin/go-langserver','-format-tool','gofmt','-gocodecompletion']}
-"let g:LanguageClient_serverCommands = {'go': ['gopls-once', '-logfile', '/tmp/gopls.log']}
-"let g:LanguageClient_serverCommands = {'go': ['gopls-unifier']}
-"let g:deoplete#enable_at_startup = 1
-"let g:LanguageClient_diagnosticsEnable = 0
 
 syntax enable
 filetype plugin indent on
@@ -76,3 +68,5 @@ tnoremap <A-t> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <A-h> <C-\><C-n>:FloatermPrev<cr>
 tnoremap <A-l> <C-\><C-n>:FloatermNext<cr>
 noremap Q <ESC>
+
+let g:iced_enable_default_key_mappings = v:true

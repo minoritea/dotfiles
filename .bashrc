@@ -16,10 +16,11 @@ export GOPATH=$HOME/go
 # PATH
 PATH="/usr/local/bin:/usr/local/sbin:$ORIG_PATH"
 PATH="$GOPATH/bin:$PATH"
-PATH="$HOME/.local/var/lib/ruby-build/2.6.1/bin:$PATH"
-# PATH=$HOME/.local/var/lib/node-build/9.11.1/bin:$PATH
+PATH="$HOME/.local/var/lib/ruby-build/3.0.1/bin:$PATH"
+PATH="$HOME/.local/var/lib/node-build/14.16.0/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
+PATH="/usr/local/go/bin:$PATH"
 # PATH="$HOME/projects/scripts/bin:$PATH"
 # PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"
 # PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
@@ -29,7 +30,7 @@ export PATH
 export EDITOR=$(which nvim)
 
 export HISTSIZE=100000
-export HISTFILESIZE=100000
+export HISTFILESIZE=200000
 export HISTCONTROL=ignoreboth
 
 export PS1='
