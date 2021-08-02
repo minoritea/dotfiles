@@ -19,8 +19,8 @@ export GOPATH=$HOME/go
 PATH="/usr/local/bin:/usr/local/sbin:$ORIG_PATH"
 PATH="$GOPATH/bin:$PATH"
 
-PATH="$HOME/.local/var/lib/ruby-build/3.0.1/bin:$PATH"
-PATH="$HOME/.local/var/lib/node-build/14.17.0/bin:$PATH"
+PATH="$HOME/.local/var/lib/ruby-build/3.0.2/bin:$PATH"
+PATH="$HOME/.local/var/lib/node-build/14.17.4/bin:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
