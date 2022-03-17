@@ -19,7 +19,7 @@ export GOPATH=$HOME/go
 PATH="/usr/local/bin:/usr/local/sbin:$ORIG_PATH"
 PATH="$GOPATH/bin:$PATH"
 
-PATH="$HOME/.local/var/lib/ruby-build/3.0.2/bin:$PATH"
+PATH="$HOME/.local/var/lib/ruby-build/3.1.0/bin:$PATH"
 PATH="$HOME/.local/var/lib/node-build/14.17.4/bin:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
@@ -31,16 +31,32 @@ fi
 
 export PATH
 
+function status-mark() {
+  if [[ "x$?" = "x0" ]]; then
+    echo "🧡"
+  else
+    echo "💔"
+  fi
+}
+
+function show-branch() {
+  local BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ ! -z "$BRANCH" ]; then
+    echo -e "\e[48;5;68;38;5;254m▶︎\e[48;5;68;38;5;52m ${BRANCH} \e[0;38;5;68m▶︎"
+  else
+    echo -e "\e[0;38;5;254m▶︎"
+  fi
+}
+
 export PS1='
-$(if [[ "x$?" = "x0" ]];then echo "\[\e[35m\]🧡";else echo "\[\e[32m\]💔";fi) \[\e[33m\]\u\[\e[34m\] \D{%Y-%m-%dT%H:%M:%S}\[\e[m\] \[\e[1;36m\]$(BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null);if [ ! -z "$BRANCH" ];then echo [$BRANCH];fi)
-\[\e[1;34m\]At \[\e[1;35m\]\w\[\e[m\]
-\[\e[1;32m\]❯\[\e[m\] '
+$(status-mark) \e[48;5;229;38;5;0m▶︎\e[48;5;229;38;5;52m \D{%Y-%m-%dT%H:%M:%S} \e[48;5;72;38;5;229m▶︎\e[48;5;72;38;5;52m \u \e[48;5;254;38;5;72m▶︎\e[48;5;254;38;5;52m \w $(show-branch)\e[m 
+ > '
 
 export VTE_CJK_WIDTH=1
 
 # history
-export HISTSIZE=100000
-export HISTFILESIZE=200000
+export HISTSIZE=-1
+export HISTFILESIZE=-1
 export HISTCONTROL=ignoreboth
 export HISTTIMEFORMAT='%Y-%m-%d %T '
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
@@ -101,7 +117,7 @@ fi
 
 if [ "x" != "x$history_watcher_tempfile_not_exists" ];then
   echo "history-watcher daemon starts..."
-  daemonize -p /tmp/history-watcher.pid -l /tmp/history-watcher.lock -e /tmp/history-watcher.log -a $GOPATH/bin/history-watcher
+  HW_DBFILE=$HOME/.cache/history-watcher.db daemonize -p /tmp/history-watcher.pid -l /tmp/history-watcher.lock -e /tmp/history-watcher.log -a $GOPATH/bin/history-watcher
 fi
 
 function hp() {

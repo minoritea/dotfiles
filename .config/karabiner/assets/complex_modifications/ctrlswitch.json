@@ -19,7 +19,8 @@
                             "bundle_identifiers": [
                                 "^com\\.apple\\.Terminal$",
                                 "^co\\.zeit\\.hyper$",
-                                "^org\\.terminus$"
+                                "^org\\.terminus$",
+                                "^org\\.tabby$"
                             ]
                         }
                     ]
