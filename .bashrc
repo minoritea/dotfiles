@@ -31,7 +31,7 @@ fi
 
 export PATH
 
-function status-mark() {
+status_mark() {
   if [[ "x$?" = "x0" ]]; then
     echo "🧡"
   else
@@ -39,7 +39,7 @@ function status-mark() {
   fi
 }
 
-function show-branch() {
+show_branch() {
   local BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
   if [ ! -z "$BRANCH" ]; then
     echo -e "\e[48;5;68;38;5;254m▶︎\e[48;5;68;38;5;52m ${BRANCH} \e[0;38;5;68m▶︎"
@@ -49,7 +49,7 @@ function show-branch() {
 }
 
 export PS1='
-$(status-mark) \e[48;5;229;38;5;0m▶︎\e[48;5;229;38;5;52m \D{%Y-%m-%dT%H:%M:%S} \e[48;5;72;38;5;229m▶︎\e[48;5;72;38;5;52m \u \e[48;5;254;38;5;72m▶︎\e[48;5;254;38;5;52m \w $(show-branch)\e[m 
+$(status_mark) \e[48;5;229;38;5;0m▶︎\e[48;5;229;38;5;52m \D{%Y-%m-%dT%H:%M:%S} \e[48;5;72;38;5;229m▶︎\e[48;5;72;38;5;52m \u \e[48;5;254;38;5;72m▶︎\e[48;5;254;38;5;52m \w $(show_branch)\e[m
  > '
 
 export VTE_CJK_WIDTH=1
@@ -81,7 +81,7 @@ fi
 export EDITOR=$(which nvim)
 alias vim=nvim
 
-function get_abs_dir() {
+get_abs_dir() {
   cmd=readlink
   if [ -x "$(command -v greadlink)" ];then
     cmd=greadlink
@@ -93,7 +93,7 @@ function get_abs_dir() {
   cd "$cdir"
 }
 
-function cdabs() {
+cdabs() {
   target_dir="$(get_abs_dir $([ "x$1" == "x" ]  && echo -n "." || echo -n "$1"))"
   cmdret=$?
   [ $cmdret -ne 0 ] && echo "cannot find the target path: $1" 1>&2 && return $cmdret
@@ -117,10 +117,10 @@ fi
 
 if [ "x" != "x$history_watcher_tempfile_not_exists" ];then
   echo "history-watcher daemon starts..."
-  HW_DBFILE=$HOME/.cache/history-watcher.db daemonize -p /tmp/history-watcher.pid -l /tmp/history-watcher.lock -e /tmp/history-watcher.log -a $GOPATH/bin/history-watcher
+  HW_POLL=1 HW_DBFILE=$HOME/.cache/history-watcher.db daemonize -p /tmp/history-watcher.pid -l /tmp/history-watcher.lock -e /tmp/history-watcher.log -a $GOPATH/bin/history-watcher
 fi
 
-function hp() {
+hp() {
   local action
   action=`curl -N -s localhost:14444 | peco`
   READLINE_LINE="${action}"
@@ -130,21 +130,23 @@ function hp() {
 bind -x '"\C-r": hp'
 bind    '"\C-xr": hp'
 
-function md() {
+md() {
   mkdir -p "$1" && cdabs "$1"
 }
 
-function mt() {
+mt() {
   mkdir -p $(dirname $@) && touch $@
 }
 
-function git-push-origin-current-branch() {
+git_push_origin_current_branch() {
   git push origin $(git-current-branch) $@
 }
+alias git-push-origin-current-branch="git_push_origin_current_branch"
 
-function git-pull-origin-current-branch() {
+git_pull_origin_current_branch() {
   git pull origin $(git-current-branch) $@
 }
+alias git-pull-origin-current-branch="git_pull_origin_current_branch"
 
 if uname | grep Darwin > /dev/null 2>&1;then
   export TMUX_TMPDIR=/private/tmp
@@ -156,3 +158,5 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
 for f in $HOME/.bash.d/*sh;do
   [ -e $f ] && . $f
 done
+
+export EDITOR=nvim
