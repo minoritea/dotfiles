@@ -1,15 +1,14 @@
 if empty($XDG_DATA_HOME)
   let $XDG_DATA_HOME= $HOME."/.local/share"
 endif
+
 call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } }
 
   Plug 'scrooloose/nerdtree'
 
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-
-  Plug 'w0rp/ale'
 
   Plug 'vim-scripts/DirDiff.vim'
 
@@ -17,11 +16,16 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'junegunn/fzf.vim'
 
   Plug 'sheerun/vim-polyglot'
-  Plug 'jremmen/vim-ripgrep'
+  Plug 'w0rp/ale'
 
-  Plug 'guns/vim-sexp',    {'for': 'clojure'}
-  Plug 'liquidz/vim-iced', {'for': 'clojure'}
+  Plug 'github/copilot.vim'
 call plug#end()
+
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-go',
+      \ 'coc-solargraph'
+\]
 
 "incremental ripgrep search by fzf
 "https://github.com/junegunn/fzf.vim/blob/36de5db9f0af1fb2e788f890d7f28f1f8239bd4b/README.md#example-advanced-ripgrep-integration
