@@ -154,7 +154,7 @@ fi
 
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/.ripgreprc
 
-for f in $HOME/.bash.d/*sh;do
+for f in $HOME/.bashrc.d/*sh;do
   [ -e $f ] && . $f
 done
 
