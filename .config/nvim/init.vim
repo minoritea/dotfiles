@@ -15,7 +15,7 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
 
-  Plug 'tpope/vim-fugitive'
+  Plug 'APZelos/blamer.nvim'
 
   Plug 'sheerun/vim-polyglot'
   Plug 'w0rp/ale'
@@ -115,3 +115,6 @@ inoremap <expr><c-p> coc#pum#visible() ? coc#pum#prev(1) : "\<c-p>"
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" blamer is enabled
+let g:blamer_enabled = 1
