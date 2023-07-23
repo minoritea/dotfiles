@@ -91,5 +91,5 @@ noremap <C-p>f :Files<cr>
 noremap <C-p>R :RG<cr>
 noremap <C-p>r :RGX<cr>
 noremap Q <ESC>
-
-let g:iced_enable_default_key_mappings = v:true
+noremap <C-]> :call CocAction('jumpDefinition')<CR>
+noremap <C-T> <C-O>
