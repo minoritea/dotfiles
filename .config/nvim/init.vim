@@ -15,6 +15,8 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
 
+  Plug 'tpope/vim-fugitive'
+
   Plug 'sheerun/vim-polyglot'
   Plug 'w0rp/ale'
 
