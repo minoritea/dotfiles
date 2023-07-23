@@ -9,18 +9,14 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
-  Plug 'w0rp/ale'
-
-  Plug 'vim-scripts/DirDiff.vim'
-
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
 
+  Plug 'w0rp/ale'
   Plug 'sheerun/vim-polyglot'
-  Plug 'jremmen/vim-ripgrep'
+  Plug 'evanleck/vim-svelte'
 
-  Plug 'guns/vim-sexp',    {'for': 'clojure'}
-  Plug 'liquidz/vim-iced', {'for': 'clojure'}
+  Plug 'github/copilot.vim'
 call plug#end()
 
 "incremental ripgrep search by fzf
@@ -73,5 +69,14 @@ noremap <C-p>b :Buffers<cr>
 noremap <C-p>f :Files<cr>
 noremap <C-p>r :RG<cr>
 noremap Q <ESC>
+noremap <C-]> :call CocAction('jumpDefinition')<CR>
+noremap <C-T> <C-O>
 
-let g:iced_enable_default_key_mappings = v:true
+set noexpandtab
+
+let g:svelte_preprocessor_tags = [
+  \ { 'name': 'ts', 'tag': 'script', 'as': 'typescript' }
+  \ ]
+let g:svelte_preprocessors = ['ts']
+let g:polyglot_disabled = ['svelte']
+
