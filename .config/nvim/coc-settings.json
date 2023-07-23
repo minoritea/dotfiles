@@ -1,9 +1,11 @@
 {
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    }
-  }
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "javascript",
+    "typescript",
+    "ruby",
+    "css",
+    "markdown"
+  ],
+  "solargraph.useBundler": false
 }
