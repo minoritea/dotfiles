@@ -95,3 +95,23 @@ noremap <C-p>r :RGX<cr>
 noremap Q <ESC>
 noremap <C-]> :call CocAction('jumpDefinition')<CR>
 noremap <C-T> <C-O>
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Add `:CocFormat` command to format current buffer
+command! -nargs=0 CocFormat :call CocActionAsync('format')
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <C-n>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ coc#refresh()
+inoremap <expr><c-p> coc#pum#visible() ? coc#pum#prev(1) : "\<c-p>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
