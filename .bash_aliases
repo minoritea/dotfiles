@@ -106,14 +106,11 @@ if ! type git-current-branch > /dev/null 2>&1;then
   alias git-current-branch='git rev-parse --abbrev-ref HEAD 2>/dev/null'
 fi
 
-if \
-  HW_POLL=true \
-  HW_DBFILE=$HOME/.cache/history-watcher.db \
-  daemonize \
-    -p /tmp/history-watcher.pid \
-    -l /tmp/history-watcher.lock \
-    -e /tmp/history-watcher.log \
-    -a $GOPATH/bin/history-watcher 2> /dev/null
+if HW_POLL=1 HW_DBFILE=$HOME/.cache/history-watcher.db daemonize \
+  -p /tmp/history-watcher.pid \
+  -l /tmp/history-watcher.lock \
+  -e /tmp/history-watcher.log \
+  -a $GOPATH/bin/history-watcher 2> /dev/null
 then
   echo "history-watcher daemon starts..."
 else
