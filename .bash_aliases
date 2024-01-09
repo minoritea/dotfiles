@@ -20,7 +20,7 @@ PATH="/usr/local/bin:/usr/local/sbin:$ORIG_PATH"
 PATH="$GOPATH/bin:$PATH"
 
 PATH="$HOME/.local/var/lib/ruby-build/3.1.3/bin:$PATH"
-PATH="$HOME/.local/var/lib/node-build/18.12.1/bin:$PATH"
+PATH="$HOME/.local/var/lib/node-build/18.14.0/bin:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
@@ -106,18 +106,18 @@ if ! type git-current-branch > /dev/null 2>&1;then
   alias git-current-branch='git rev-parse --abbrev-ref HEAD 2>/dev/null'
 fi
 
-if [ -e /tmp/history-watcher.lock ];then
-  if ! pgrep -F /tmp/history-watcher.pid >/dev/null;then
-    rm /tmp/history-watcher.lock /tmp/history-watcher.pid
-    history_watcher_tempfile_not_exists=1
-  fi
-else
-  history_watcher_tempfile_not_exists=1
-fi
-
-if [ "x" != "x$history_watcher_tempfile_not_exists" ];then
+if \
+  HW_POLL=true \
+  HW_DBFILE=$HOME/.cache/history-watcher.db \
+  daemonize \
+    -p /tmp/history-watcher.pid \
+    -l /tmp/history-watcher.lock \
+    -e /tmp/history-watcher.log \
+    -a $GOPATH/bin/history-watcher 2> /dev/null
+then
   echo "history-watcher daemon starts..."
-  HW_POLL=1 HW_DBFILE=$HOME/.cache/history-watcher.db daemonize -p /tmp/history-watcher.pid -l /tmp/history-watcher.lock -e /tmp/history-watcher.log -a $GOPATH/bin/history-watcher
+else
+  echo "history-watcher daemon already started."
 fi
 
 hp() {

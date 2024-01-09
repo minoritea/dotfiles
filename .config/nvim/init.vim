@@ -2,6 +2,8 @@ if empty($XDG_DATA_HOME)
   let $XDG_DATA_HOME= $HOME."/.local/share"
 endif
 
+let g:polyglot_disabled = ['svelte']
+
 call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } }
 
@@ -21,7 +23,7 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'APZelos/blamer.nvim'
 
   Plug 'sheerun/vim-polyglot'
-  Plug 'w0rp/ale'
+  Plug 'dense-analysis/ale'
 
   Plug 'evanleck/vim-svelte'
 
@@ -89,8 +91,11 @@ set mouse=
 noremap ! <Nop>
 noremap q <Nop>
 noremap q: <Nop>
-noremap <Left> :bp<CR>
+" noremap <Right> gt<CR>
+" noremap <Left> gT<CR>
 noremap <Right> :bn<CR>
+noremap <Left> :bp<CR>
+noremap <C-w>t <C-w>T
 nnoremap <C-n> :NERDTreeToggle<CR>
 noremap <C-s> :let @t=@*<CR>:let @*=@"<CR>:let @"=@t<CR>
 noremap <C-j> :ALENext<cr>
@@ -101,8 +106,6 @@ noremap <C-p>r :RGX<cr>
 noremap Q <ESC>
 noremap <C-]> :call CocAction('jumpDefinition')<CR>
 noremap <C-T> <C-O>
-
-set noexpandtab
 
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -131,4 +134,6 @@ let g:svelte_preprocessor_tags = [
   \ { 'name': 'ts', 'tag': 'script', 'as': 'typescript' }
   \ ]
 let g:svelte_preprocessors = ['ts']
-let g:polyglot_disabled = ['svelte']
+
+let g:ale_linters = {'go':['gofmt']}
+let g:ale_fixers = {'go':['gofmt', 'goimports']}
