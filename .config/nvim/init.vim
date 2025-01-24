@@ -97,7 +97,7 @@ noremap <Right> :bn<CR>
 noremap <Left> :bp<CR>
 noremap <C-w>t <C-w>T
 nnoremap <C-n> :NERDTreeToggle<CR>
-noremap <C-s> :let @t=@*<CR>:let @*=@"<CR>:let @"=@t<CR>
+noremap <C-s> :let @t=@+<CR>:let @+=@"<CR>:let @"=@t<CR>
 noremap <C-j> :ALENext<cr>
 noremap <C-p>b :Buffers<cr>
 noremap <C-p>f :Files<cr>
@@ -137,3 +137,8 @@ let g:svelte_preprocessors = ['ts']
 
 let g:ale_linters = {'go':['gofmt']}
 let g:ale_fixers = {'go':['gofmt', 'goimports']}
+let g:clipboard = {
+  \ 'name': 'macos-system-clipboard',
+  \ 'copy': {'+': ['pbcopy'], '*': ['pbcopy']},
+  \ 'paste': {'+': ['pbpaste'], '*': ['pbpaste']}}
+

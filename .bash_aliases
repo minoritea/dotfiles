@@ -19,8 +19,8 @@ export GOPATH=$HOME/go
 PATH="/usr/local/bin:/usr/local/sbin:$ORIG_PATH"
 PATH="$GOPATH/bin:$PATH"
 
-PATH="$HOME/.local/var/lib/ruby-build/3.1.3/bin:$PATH"
-PATH="$HOME/.local/var/lib/node-build/18.14.0/bin:$PATH"
+PATH="$HOME/.local/var/lib/ruby-build/3.3.0/bin:$PATH"
+PATH="$HOME/.local/var/lib/node-build/20.11.1/bin:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
@@ -106,15 +106,20 @@ if ! type git-current-branch > /dev/null 2>&1;then
   alias git-current-branch='git rev-parse --abbrev-ref HEAD 2>/dev/null'
 fi
 
-if HW_POLL=1 HW_DBFILE=$HOME/.cache/history-watcher.db daemonize \
-  -p /tmp/history-watcher.pid \
-  -l /tmp/history-watcher.lock \
-  -e /tmp/history-watcher.log \
-  -a $GOPATH/bin/history-watcher 2> /dev/null
-then
-  echo "history-watcher daemon starts..."
-else
+if pgrep history-watcher > /dev/null;then 
   echo "history-watcher daemon already started."
+else
+  HW_POLL=1 HW_DBFILE=$HOME/.cache/history-watcher.db $GOPATH/bin/goemon -- $GOPATH/bin/history-watcher > /dev/null
+  echo "history-watcher daemon starts..."
+fi
+
+if command -v lemonade > /dev/null 2>&1;then
+  if pgrep lemonade > /dev/null;then 
+    echo "lemonade daemon already started."
+  else
+    $GOPATH/bin/goemon -- lemonade -allow 127.0.0.1/32,::1 server > /dev/null
+    echo "lemonade daemon starts..."
+  fi
 fi
 
 hp() {
