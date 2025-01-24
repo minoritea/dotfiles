@@ -23,7 +23,6 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
   Plug 'APZelos/blamer.nvim'
 
   Plug 'sheerun/vim-polyglot'
-  Plug 'dense-analysis/ale'
 
   Plug 'evanleck/vim-svelte'
 
@@ -31,6 +30,7 @@ call plug#begin($XDG_DATA_HOME.'/nvim/plugged')
 call plug#end()
 
 let g:coc_global_extensions = [
+      \ 'coc-prettier',
       \ 'coc-tsserver',
       \ 'coc-go',
       \ 'coc-svelte',
@@ -137,8 +137,8 @@ let g:svelte_preprocessors = ['ts']
 
 let g:ale_linters = {'go':['gofmt']}
 let g:ale_fixers = {'go':['gofmt', 'goimports']}
-let g:clipboard = {
-  \ 'name': 'macos-system-clipboard',
-  \ 'copy': {'+': ['pbcopy'], '*': ['pbcopy']},
-  \ 'paste': {'+': ['pbpaste'], '*': ['pbpaste']}}
 
+if has('persistent_undo')
+  set undodir=~/.cache/nvim/undo
+  set undofile
+endif
