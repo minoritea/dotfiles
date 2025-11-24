@@ -1,16 +1,21 @@
 {
-  "diagnostic.displayByAle": true,
-  "solargraph.useBundler": false,
-  "svelte.enable-ts-plugin": true,
   "languageserver": {
-    "go": {
-      "command": "gopls",
-      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
-      "initializationOptions": { "usePlaceholders": true }
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "trace.server": "verbose",
+      "filetypes": ["graphql","javascript","javascriptreact","typescript","typescriptreact"]
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"]
     }
-  },
+  }
+  "go.gofumpt": true,
   "coc.preferences.formatOnSave": true,
+  "coc.source.around.enable": false,
+  "coc.source.buffer.enable": false,
   "typescript.inlayHints": {
     "variableTypes.enabled": true,
     "functionLikeReturnTypes.enabled": true,
@@ -19,5 +24,10 @@
     "parameterNames.enabled": true,
     "parameterTypes.enabled": true
   },
-  "prettier.disableLanguages": ["markdown", "Makefile", "yaml"]
+  "typescript.autoClosingTags": false,
+  "prettier.disableLanguages": [
+    "markdown",
+    "Makefile",
+    "yaml"
+  ]
 }
