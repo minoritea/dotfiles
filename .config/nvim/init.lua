@@ -18,8 +18,8 @@ require('lazy').setup({
 
     -- Filer
     { 'stevearc/oil.nvim', priority = 1, config = function()
+        require('oil').setup({ default_file_explorer = true, view_options = { show_hidden = true, }, })
         vim.api.nvim_create_user_command('OilP', function()
-          require('oil').setup({ default_file_explorer = true, view_options = { show_hidden = true, }, })
           require('oil').open(vim.fn.expand('%:p:h'))
         end, {})
       end,
@@ -89,7 +89,6 @@ vim.keymap.set('', '<C-p>r', function() fzf_lua.live_grep() end)
 vim.keymap.set('', '<C-]>', '<Plug>(coc-definition)')
 vim.keymap.set('', '<C-T>', '<C-O>')
 vim.keymap.set('', '<C-K>', ":call CocAction('doHover')<CR>")
-vim.keymap.set('n', '<C-n>', ':Otree<CR>')
 vim.keymap.set('n', 'gcr', '<Plug>(coc-references-used)')
 vim.keymap.set('n', 'gci', '<Plug>(coc-implementation)')
 vim.keymap.set('n', 'gct', '<Plug>(coc-type-definition)')
