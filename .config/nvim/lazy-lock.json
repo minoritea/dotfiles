@@ -1,9 +1,8 @@
 {
-  "coc.nvim": { "branch": "release", "commit": "12a053dba1a9d822552f4de66706b59b541bf080" },
   "copilot.vim": { "branch": "release", "commit": "f89e977c87180519ba3b942200e3d05b17b1e2fc" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
-  "fzf-lua": { "branch": "main", "commit": "3170d98240266a68c2611fc63260c3ab431575aa" },
+  "fzf-lua": { "branch": "main", "commit": "bbff1efa2f72ddd1cb3fed2ca38a9b273aef4a9b" },
   "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
-  "nvim-treesitter": { "branch": "main", "commit": "3bbae7b32e0cc417438e54ec77eb7083e5f38c0f" },
-  "oil.nvim": { "branch": "master", "commit": "01cb3a8ad7d5e8707041edc775af83dbf33838f4" }
+  "nvim-treesitter": { "branch": "main", "commit": "75797cdd8ac125c7ace065b17788b439dcf89a71" },
+  "oil.nvim": { "branch": "master", "commit": "cbcb3f997f6f261c577b943ec94e4ef55108dd95" }
 }
