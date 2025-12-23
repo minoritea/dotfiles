@@ -105,7 +105,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
   group = custom_cmd_group,
-  callback = vim.lsp.buf.format,
+  callback = function() vim.lsp.buf.format() end,
 })
 
 local fzf_lua = require('fzf-lua')
