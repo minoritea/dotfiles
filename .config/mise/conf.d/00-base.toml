@@ -1,0 +1,5 @@
+[tools]
+fd = "latest"
+fzf = "latest"
+"go:github.com/minoritea/goemon" = "latest"
+"go:github.com/minoritea/history-watcher" = "latest"
