@@ -48,7 +48,7 @@ fi
 
 hp() {
   local action
-  action=`curl -N -s localhost:14444 | peco`
+  action=`curl -N -s localhost:14444 | fzf --layout reverse --border`
   READLINE_LINE="${action}"
   READLINE_POINT="${#READLINE_LINE}"
 }
