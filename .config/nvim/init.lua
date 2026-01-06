@@ -74,7 +74,6 @@ vim.lsp.config['go'] = {
   root_markers = { 'go.mod' },
 }
 vim.lsp.config['ts'] = {
-  -- cmd = { vim.fn.expand('~/.bun/bin/tsgo'), '--lsp', '--stdio' },
   cmd = { vim.fn.expand('~/.bun/bin/vtsls'), '--stdio' },
   filetypes = {
     'typescript',
